@@ -1,5 +1,5 @@
 # srcds-upload
-Automate multi-server file uploads
+Automate multi-server file uploads for Source dedicated servers
 
 ### Usage
 * Add files to upload folder according to folder structure seen after login, e.g. `/tf`.  New folders will automatically be created.
