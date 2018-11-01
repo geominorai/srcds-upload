@@ -11,7 +11,7 @@ Automate multi-server file uploads for Source dedicated servers
 * Execute `python ftp_upload_run`
 
 ### Extra
-* Run `clearuploads.sh` to clear the files in the upload folder while preserving the empty folders for future use.
+* Run `clear_uploads.sh` to clear the files in the upload folder while preserving the empty folders for future use.
 
 ### Dependencies
 * [ftplib](https://docs.python.org/3/library/ftplib.html)
