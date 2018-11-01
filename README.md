@@ -10,6 +10,9 @@ Automate multi-server file uploads for Source dedicated servers
 * Plugin deletions are not automatically unloaded.  You will have to set `rcon` with a command like `sm plugins unload myplugin`.
 * Execute `python ftp_upload_run`
 
+### Extra
+* Run `clearuploads.sh` to clear the files in the upload folder while preserving the empty folders for future use.
+
 ### Dependencies
 * [ftplib](https://docs.python.org/3/library/ftplib.html)
 * [python-valve](https://github.com/serverstf/python-valve)
