@@ -2,32 +2,46 @@ logins_ftp =\
 {
 	'koth':
 	{
-		'koth.na.mygameserver.domain':
+		'KoTH NA':
 		{
-			'name':		'KoTH NA',
-			'username':	'user', 
-			'password':	'thepass'
+			'host':		'koth.na.mygameserver.domain',
+			'username':	'ftpacct', 
+			'password':	'ftppass',
+			'rcon':		'rconpass'
 		},
-		'koth.eu.mygameserver.domain':
+		'KoTH EU':
 		{
-			'name':		'KoTH EU',
-			'username':	'user',
-			'password':	'thepass'
+			'host':		'eu.mygameserver.domain',
+			'protocol':	'sftp',
+			'port':		22,
+			'username': 'linuxacct',
+			'password': 'linuxpass',
+			'path':		'/home/linuxacct/servers/tf2-koth/',
+			'ext_ip':	'koth.eu.mygameserver.domain',
+			'ext_port':	27015,
+			'rcon':		'rconpass'
 		}
 	},
 	'ht':
 	{
-		'ht.na.mygameserver.domain':
+		'Hightower NA':
 		{
-			'name':			'Hightower NA',
-			'username':	'user',
-			'password':	'thepass`'
+			'host':		'ht.na.mygameserver.domain',
+			'username':	'ftpacct',
+			'password':	'ftppass',
+			'rcon':		'rconpass'
 		},
-		'ht.eu.mygameserver.domain':
+		'Hightower EU':
 		{
-			'name':			'Hightower EU',
-			'username':	'user',
-			'password':	'thepass'
+			'host':		'eu.mygameserver.domain',
+			'protocol':	'sftp',
+			'port':		22,
+			'username': 'linuxacct',
+			'password': 'linuxpass',
+			'path':		'/home/linuxacct/servers/tf2-ht/',
+			'ext_ip':	'ht.eu.mygameserver.domain',
+			'ext_port':	27025,
+			'rcon':		'rconpass'
 		}
 	}
 }
