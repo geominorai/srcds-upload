@@ -33,6 +33,8 @@ def upload_ftp(server_info, upload_files, delete_files, force_reupload=False):
 	plugins_load = []
 	plugins_reload = []
 	
+	nlst_cache = {};
+
 	lastpath = None
 	for (path, file) in upload_files:
 		relative_filepath = path + '/' + file
@@ -58,10 +60,13 @@ def upload_ftp(server_info, upload_files, delete_files, force_reupload=False):
 				
 			lastpath = path
 		
-		files_online =  ftp.nlst()
+		if relative_filepath in nlst_cache:
+			files_online = nlst_cache[relative_filepath]
+		else:
+			files_online =  ftp.nlst()
+			nlst_cache[relative_filepath] = files_online
 		
 		local_filepath = 'upload' + relative_filepath
-		
 
 		if file in files_online:
 			print('\t\t\tRemote file found')
