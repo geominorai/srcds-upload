@@ -168,7 +168,6 @@ def upload_sftp(server_info, upload_files, delete_files, force_reupload=False):
 		local_filepath = 'upload' + relative_filepath
 
 		try:
-
 			fileinfo = sftp.stat(info['path'] + relative_filepath)
 			print('\t\t\tRemote file found')
 
@@ -248,9 +247,9 @@ def run(servers, force_reupload=False, rcon_cmds='', delete_files=None):
 				try:
 					with valve.rcon.RCON((address, port), info['rcon']) as rcon:
 						for plugin in [p for p in plugins_load if p not in plugins_reload]:
-							print('\t\tRCON: %s' % rcon('sm plugins load ' + plugin))
+							print('\t\tRCON: %s' % rcon('sm plugins load "%s"' % plugin))
 						for plugin in plugins_reload:
-							print('\t\tRCON: %s' % rcon('sm plugins reload ' + plugin))
+							print('\t\tRCON: %s' % rcon('sm plugins reload "%s"' % plugin))
 
 						if rcon_cmds:
 							print('\t\tRCON:\t%s' % rcon(rcon_cmds).replace('\n','\n\t\t\t'))
