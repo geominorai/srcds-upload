@@ -293,7 +293,7 @@ class Insert(Operation):
 		elif self.after:
 			return "Insert '%s' after '%s' in '%s'" % (self.text, self.after, self.file)
 		else:
-			return "Insert '%s' at the end in '%s'" % (self.text, self.after, self.file)
+			return "Insert '%s' at the end in '%s'" % (self.text, self.file)
 
 
 class Replace(Operation):
