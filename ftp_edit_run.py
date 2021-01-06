@@ -67,6 +67,49 @@ edits = [
 			# ),
 		]
 
+def addmap(mapname):
+	map_edits = [
+		Insert(
+			file		= '/tf/cfg/mapcycle.txt',
+			text		= mapname+'\n'
+		),
+
+		FindDuplicates(
+			file		= '/tf/cfg/mapcycle.txt',
+			search		= '[\\w_]+',
+			remove		= True,
+			failover	= None
+		),
+
+		Sort(
+			file		= '/tf/cfg/mapcycle.txt',
+		)
+	]
+
+	edit_run(servers, map_edits, backup, max_backups, read_only, rcon)
+
+def replacemap(oldmap, newmap):
+	map_edits = [
+		Replace(
+			file		= '/tf/cfg/mapcycle.txt',
+			search		= oldmap,
+			replace		= newmap
+		)
+	]
+
+	edit_run(servers, map_edits, backup, max_backups, read_only, rcon)
+
+def removemap(mapname):
+	map_edits = [
+		Delete(
+			file		= '/tf/cfg/mapcycle.txt',
+			search		= mapname,
+			failover	= None
+		)
+	]
+
+	edit_run(servers, map_edits, backup, max_backups, read_only, rcon)
+
 backup = True
 max_backups = 10
 
@@ -75,4 +118,9 @@ rcon = ""
 
 if __name__ == '__main__':
 	edit_run(servers, edits, backup, max_backups, read_only, rcon)
+
+	# addmap('plr_example_v1')
+	# replacemap('plr_example_v1', 'plr_example_v2')
+	# removemap('plr_example_v1')
+
 	print('Done')
