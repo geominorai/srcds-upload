@@ -88,7 +88,7 @@ class Sort(Operation):
 		lines = [line.decode() for line in fo if line.strip()]
 		lines.sort()
 
-		tmp = tempfile.TemporaryFile(delete=False)
+		tmp = tempfile.NamedTemporaryFile(delete=False)
 		try:
 			for i, line in enumerate(lines):
 				file_lineno = '%s:%d' % (self.filename, i+1)
@@ -184,7 +184,7 @@ class FindDuplicates(Operation):
 			return self.run_failover(fo)
 
 		if self.remove:
-			tmp = tempfile.TemporaryFile(delete=False)
+			tmp = tempfile.NamedTemporaryFile(delete=False)
 
 			try:
 				fo.seek(0)
@@ -220,7 +220,7 @@ class Insert(Operation):
 	def run(self, fo):
 		super().run()
 
-		tmp = tempfile.TemporaryFile(delete=False)
+		tmp = tempfile.NamedTemporaryFile(delete=False)
 		found = False
 
 		newline = self.text + '\n'
@@ -306,7 +306,7 @@ class Replace(Operation):
 	def run(self, fo):
 		super().run()
 
-		tmp = tempfile.TemporaryFile(delete=False)
+		tmp = tempfile.NamedTemporaryFile(delete=False)
 
 		n_repl_count = 0
 
@@ -357,7 +357,7 @@ class Delete(Operation):
 	def run(self, fo):
 		super().run()
 
-		tmp = tempfile.TemporaryFile(delete=False)
+		tmp = tempfile.NamedTemporaryFile(delete=False)
 
 		n_skip_count = 0
 
@@ -405,7 +405,7 @@ def edit_ftp(server, info, edits, backup_path, read_only):
 					print('\t\t\tPath %s does not exist' % abs_path_dir)
 					return False
 
-				with tempfile.TemporaryFile('rb+') as tmp:
+				with tempfile.NamedTemporaryFile('rb+') as tmp:
 					try:
 						ftp.retrbinary('RETR ' + filename, tmp.write, 262144)
 					except error_perm:
@@ -469,7 +469,7 @@ def edit_sftp(server, info, edits, backup_path, read_only):
 
 				abs_path_file = info['path'] + '/' + edit.file
 
-				with tempfile.TemporaryFile('rb+') as tmp:
+				with tempfile.NamedTemporaryFile('rb+') as tmp:
 					sftp.getfo(abs_path_file, tmp)
 
 					if backup_path and isinstance(edit, Backup):
@@ -519,7 +519,10 @@ def backup_cleanup(max_backups):
 		dirs.sort(reverse=True)
 
 		for d in dirs[max_backups:]:
-			shutil.rmtree('backups/%s' % d)
+			try:
+				shutil.rmtree('backups/%s' % d)
+			except OSError as e:
+				print('\t\tError removing old backup: %s' % e)
 
 
 def backup_file(backup_path, server_name, path, fo):
