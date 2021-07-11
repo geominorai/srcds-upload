@@ -231,9 +231,17 @@ def run(servers, force_reupload=False, rcon_cmds='', delete_files=None):
 		if upload_files or delete_files:
 			try:
 				if 'protocol' in info:
+					protocol = info['protocol'].lower()
+				else:
+					protocol = 'ftp'
+
+				if protocol == 'ftp':
+					success, plugins_load, plugins_reload = upload_ftp((server, info), upload_files, delete_files, force_reupload)
+				elif protocol == 'sftp':
 					success, plugins_load, plugins_reload = upload_sftp((server, info), upload_files, delete_files, force_reupload)
 				else:
-					success, plugins_load, plugins_reload = upload_ftp((server, info), upload_files, delete_files, force_reupload)
+					raise ValueError('Protocol must be ftp or sftp')
+
 			except Exception as e:
 				print('\t\tError while uploading: %s' % e)
 		else:
